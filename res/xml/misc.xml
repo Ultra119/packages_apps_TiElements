@@ -27,6 +27,18 @@
             android:summary="@string/gaming_mode_summary"
             android:defaultValue="false" />
 
+        <Preference
+            android:key="time_in_state"
+            android:title="@string/time_in_state_title"
+            android:summary="@string/time_in_state_summary"
+            android:fragment="com.titanium.tielements.fragments.TimeInState" />
+
+        <Preference
+            android:key="doze_settings"
+            android:title="@string/doze_settings_title"
+            android:summary="@string/doze_settings_summary"
+            android:fragment="com.titanium.tielements.fragments.DozeSettings" />
+
         <com.titanium.support.preferences.SystemSettingSwitchPreference
             android:key="enable_conditions"
             android:title="@string/dashboard_conditions_title"
