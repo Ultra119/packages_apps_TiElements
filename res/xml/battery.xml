@@ -81,6 +81,12 @@
             android:summary="@string/alarm_blocker_summary"
             android:fragment="com.titanium.tielements.fragments.AlarmBlocker" />
 
+        <com.titanium.support.preferences.SystemSettingSwitchPreference
+            android:key="sensor_block"
+            android:title="@string/sensor_block_title"
+            android:summary="@string/sensor_block_summary"
+            android:defaultValue="false" />
+
     </PreferenceCategory>
 
 </PreferenceScreen>
