@@ -60,4 +60,10 @@
             android:title="@string/screenshot_type_title"
             android:defaultValue="0" />
 
+        <com.titanium.support.preferences.SecureSettingSwitchPreference
+            android:key="adb_notify"
+            android:title="@string/adb_notify"
+            android:summary="@string/adb_notify_summary"
+            android:defaultValue="true" />
+
 </PreferenceScreen>
