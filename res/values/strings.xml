@@ -377,6 +377,10 @@
     <string name="lock_date_font_summary">Change the default font of the lockscreen date widget</string>
     <string name="lock_date_font_dialog_title">Select lock date font</string>
 
+    <!-- Lock Clock & Date Size -->
+    <string name="lockdate_font_size_title">Date font size</string>
+    <string name="lockclock_font_size_title">Clock font size</string>
+
     <!-- Notification count -->
     <string name="status_bar_notif_count_title">Show notification count</string>
     <string name="status_bar_notif_count_summary">Display the number of pending notifications</string>
