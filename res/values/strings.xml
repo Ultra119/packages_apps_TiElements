@@ -381,6 +381,13 @@
     <string name="lockdate_font_size_title">Date font size</string>
     <string name="lockclock_font_size_title">Clock font size</string>
 
+    <!-- LS OwnerInfo Font & Size -->
+    <string name="owner_info">Owner Info</string>
+    <string name="lock_ownerinfo_font_title">Owner Info font options</string>
+    <string name="lock_ownerinfo_font_summary">Change the default font of the lockscreen owner info</string>
+    <string name="lock_ownerinfo_font_dialog_title">Select lock owner info font</string>
+    <string name="lockowner_font_size_title">Owner info font size</string>
+
     <!-- Notification count -->
     <string name="status_bar_notif_count_title">Show notification count</string>
     <string name="status_bar_notif_count_summary">Display the number of pending notifications</string>
