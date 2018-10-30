@@ -868,4 +868,8 @@
     <string name="volte_icon_android1hd">Android One HD</string>
     <string name="volte_icon_miui">MIUI</string>
 
+    <!-- Navbar Animation -->
+    <string name="pixel_navbar_anim_title">Pixel animation</string> 
+    <string name="pixel_navbar_anim_summary">Toggle home button animation</string>
+
 </resources>
