@@ -330,6 +330,7 @@
     <string name="status_bar_clock_auto_hide_sdur_title">Show duration</string>
 
     <!-- Lock Clock Fonts -->
+    <string name="lock_clock">Lock Clock</string>
     <string name="lock_clock_font_title">Clock font options</string>
     <string name="lock_clock_font_summary">Change the default font of the lockscreen clock widget</string>
     <string name="lock_clock_font_dialog_title">Select lock clock font</string>
