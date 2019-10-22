@@ -44,9 +44,11 @@ public class Lockscreen extends SettingsPreferenceFragment implements
     private SecureSettingMasterSwitchPreference mVisualizerEnabled;
     private static final String FOD_ICON_PICKER_CATEGORY = "fod_icon_picker";
     private static final String LOCK_CLOCK_FONTS = "lock_clock_fonts";
+    private static final String LOCK_DATE_FONTS = "lock_date_fonts";
 
     private PreferenceCategory mFODIconPickerCategory;
     private ListPreference mLockClockFonts;
+    private ListPreference mLockDateFonts;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -69,12 +71,20 @@ public class Lockscreen extends SettingsPreferenceFragment implements
         if (mFODIconPickerCategory != null
                 && !getResources().getBoolean(com.android.internal.R.bool.config_supportsInDisplayFingerprint)) {
             prefScreen.removePreference(mFODIconPickerCategory);
+
         // Lockscren Clock Fonts
         mLockClockFonts = (ListPreference) findPreference(LOCK_CLOCK_FONTS);
         mLockClockFonts.setValue(String.valueOf(Settings.System.getInt(
                 getContentResolver(), Settings.System.LOCK_CLOCK_FONTS, 28)));
         mLockClockFonts.setSummary(mLockClockFonts.getEntry());
         mLockClockFonts.setOnPreferenceChangeListener(this);
+
+        // Lockscren Date Fonts
+        mLockDateFonts = (ListPreference) findPreference(LOCK_DATE_FONTS);
+        mLockDateFonts.setValue(String.valueOf(Settings.System.getInt(
+                getContentResolver(), Settings.System.LOCK_DATE_FONTS, 28)));
+        mLockDateFonts.setSummary(mLockDateFonts.getEntry());
+        mLockDateFonts.setOnPreferenceChangeListener(this);
         }
     }
 
@@ -105,6 +115,12 @@ public class Lockscreen extends SettingsPreferenceFragment implements
                     Integer.valueOf((String) objValue));
             mLockClockFonts.setValue(String.valueOf(objValue));
             mLockClockFonts.setSummary(mLockClockFonts.getEntry());
+            return true;
+        } else if (preference == mLockDateFonts) {
+            Settings.System.putInt(getContentResolver(), Settings.System.LOCK_DATE_FONTS,
+                    Integer.valueOf((String) objValue));
+            mLockDateFonts.setValue(String.valueOf(objValue));
+            mLockDateFonts.setSummary(mLockDateFonts.getEntry());
             return true;
         }
         return false;
