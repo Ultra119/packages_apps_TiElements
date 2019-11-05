@@ -33,6 +33,7 @@ import com.android.settings.R;
 import com.android.settings.SettingsPreferenceFragment;
 import com.android.internal.logging.nano.MetricsProto;
 import com.titanium.support.preferences.CustomSeekBarPreference;
+import com.titanium.support.preferences.SystemSettingMasterSwitchPreference;
 import com.android.settings.Utils;
 
 public class QuickSettings extends SettingsPreferenceFragment implements
@@ -47,6 +48,7 @@ public class QuickSettings extends SettingsPreferenceFragment implements
     private static final String PREF_TILE_ANIM_DURATION = "qs_tile_animation_duration";
     private static final String PREF_TILE_ANIM_INTERPOLATOR = "qs_tile_animation_interpolator";
     private static final String QS_BLUR_ALPHA = "qs_blur_alpha";
+    private static final String STATUS_BAR_CUSTOM_HEADER = "status_bar_custom_header";
 
     private ListPreference mQuickPulldown;
 
@@ -55,6 +57,7 @@ public class QuickSettings extends SettingsPreferenceFragment implements
     private ListPreference mTileAnimationDuration;
     private ListPreference mTileAnimationInterpolator;
     private CustomSeekBarPreference mQsBlurAlpha;
+    private SystemSettingMasterSwitchPreference mCustomHeader;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -108,6 +111,12 @@ public class QuickSettings extends SettingsPreferenceFragment implements
                 Settings.System.QS_BLUR_ALPHA, 100, UserHandle.USER_CURRENT);
         mQsBlurAlpha.setValue(qsBlurAlpha);
         mQsBlurAlpha.setOnPreferenceChangeListener(this);
+
+        mCustomHeader = (SystemSettingMasterSwitchPreference) findPreference(STATUS_BAR_CUSTOM_HEADER);
+        int qsHeader = Settings.System.getInt(resolver,
+                Settings.System.OMNI_STATUS_BAR_CUSTOM_HEADER, 0);
+        mCustomHeader.setChecked(qsHeader != 0);
+        mCustomHeader.setOnPreferenceChangeListener(this);
     }
 
     @Override
@@ -163,6 +172,11 @@ public class QuickSettings extends SettingsPreferenceFragment implements
             int value = (Integer) objValue;
             Settings.System.putInt(getContentResolver(),
                     Settings.System.QS_BLUR_ALPHA, value);
+            return true;
+        } else if (preference == mCustomHeader) {
+            boolean header = (Boolean) objValue;
+            Settings.System.putInt(resolver,
+                    Settings.System.OMNI_STATUS_BAR_CUSTOM_HEADER, header ? 1 : 0);
             return true;
         }
         return true;
