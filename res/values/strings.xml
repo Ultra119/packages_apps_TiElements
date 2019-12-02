@@ -65,6 +65,7 @@
     <string name="loading">Loading\u2026</string>
     <string name="reset">Reset</string>
     <string name="app_name">TiElements</string>
+    <string name="default_string">Default</string>
 
     <!-- Lockscreen battery info indicator -->
     <string name="ls_disable_elements">Lockscreen Info Elements</string>
@@ -872,4 +873,11 @@
     <string name="pixel_navbar_anim_title">Pixel animation</string> 
     <string name="pixel_navbar_anim_summary">Toggle home button animation</string>
 
+    <!-- Ambient edge lighting -->
+    <string name="notification_screen_title">Screen</string>
+    <string name="pulse_ambient_light_title">Edge lighting</string>
+    <string name="pulse_ambient_light_summary">Light up the side edges of the screen on notification pulse</string>
+    <string name="pulse_ambient_light_color_title">Edge light color</string>
+
 </resources>
+
