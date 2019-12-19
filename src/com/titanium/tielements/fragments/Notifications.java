@@ -45,11 +45,13 @@ public class Notifications extends SettingsPreferenceFragment implements
     private static final String FORCE_EXPANDED_NOTIFICATIONS = "force_expanded_notifications";
     private static final String HEADS_UP_NOTIFICATIONS_ENABLED = "heads_up_notifications_enabled";
     private static final String PULSE_AMBIENT_LIGHT_COLOR = "pulse_ambient_light_color";
+    private static final String PULSE_AMBIENT_LIGHT_DURATION = "pulse_ambient_light_duration";
 
     private Preference mChargingLeds;
     private SwitchPreference mForceExpanded;
     private GlobalSettingMasterSwitchPreference mHeadsUpEnabled;
     private ColorPickerPreference mEdgeLightColorPreference;
+    private CustomSeekBarPreference mEdgeLightDurationPreference;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -90,6 +92,11 @@ public class Notifications extends SettingsPreferenceFragment implements
                 HEADS_UP_NOTIFICATIONS_ENABLED, 1);
         mHeadsUpEnabled.setChecked(headsUpEnabled != 0);
 
+        mEdgeLightDurationPreference = (CustomSeekBarPreference) findPreference(PULSE_AMBIENT_LIGHT_DURATION);
+        int lightDuration = Settings.System.getIntForUser(getContentResolver(),
+                Settings.System.PULSE_AMBIENT_LIGHT_DURATION, 2, UserHandle.USER_CURRENT);
+        mEdgeLightDurationPreference.setValue(lightDuration);
+        mEdgeLightDurationPreference.setOnPreferenceChangeListener(this);
     }
 
     @Override
@@ -129,6 +136,11 @@ public class Notifications extends SettingsPreferenceFragment implements
             int intHex = ColorPickerPreference.convertToColorInt(hex);
             Settings.System.putInt(getContentResolver(),
                     Settings.System.PULSE_AMBIENT_LIGHT_COLOR, intHex);
+            return true;
+        } else if (preference == mEdgeLightDurationPreference) {
+            int value = (Integer) newValue;
+            Settings.System.putIntForUser(getContentResolver(),
+                    Settings.System.PULSE_AMBIENT_LIGHT_DURATION, value, UserHandle.USER_CURRENT);
             return true;
         }
         return true;
