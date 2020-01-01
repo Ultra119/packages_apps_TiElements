@@ -1085,4 +1085,8 @@
     <string name="qs_bg_accent_title">Use Accent color</string>
     <string name="qs_bg_accent_summary">Set QS background color from System Accent</string>
 
+    <!-- One UI Action Bar -->
+    <string name="enable_oneui">OneUI</string>
+    <string name="enable_oneui_summary">Show spacer above settings actionbar for easier use with one hand\nNOTE: restart settings app to see effect</string>
+
 </resources>
