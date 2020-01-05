@@ -1070,4 +1070,8 @@
     <string name="vibrate_on_notifications_title">Notification vibration</string>
     <string name="vibrate_on_notifications_summary">Vibrate on notifications</string>
 
+    <!-- Lock icon -->
+    <string name="hide_lockicon_title">Hide lock icon</string>
+    <string name="hide_lockicon_summary">Hide the lock icon on lockscreen</string>
+
 </resources>
