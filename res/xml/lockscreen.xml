@@ -200,7 +200,31 @@
      </PreferenceCategory>
 
      <PreferenceCategory
-         android:title="@string/lock_date">
+
+        android:key="text_clock_customizations"
+        android:title="@string/text_clock_customizations" >
+
+        <com.titanium.support.preferences.SystemSettingListPreference
+            android:key="text_clock_alignment"
+            android:title="@string/text_clock_alignment"
+            android:dialogTitle="@string/text_clock_alignment"
+            android:entries="@array/text_clock_entries"
+            android:entryValues="@array/text_clock_values"
+            android:defaultValue="0" />
+
+       <com.titanium.support.preferences.SystemSettingSeekBarPreference
+            android:key="text_clock_padding"
+            android:title="@string/text_clock_padding"
+            android:max="100"
+            android:min="0"
+            android:dependency="text_clock_alignment"
+            settings:units="dp"
+            android:defaultValue="55" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:title="@string/lock_date">
 
         <com.titanium.support.preferences.SecureSettingListPreference
             android:key="lockscreen_date_selection"

@@ -36,6 +36,7 @@ import com.android.internal.logging.nano.MetricsProto;
 import com.android.settings.Utils;
 import com.titanium.support.preferences.SecureSettingMasterSwitchPreference;
 import com.titanium.support.preferences.CustomSeekBarPreference;
+import com.titanium.support.preferences.SystemSettingSeekBarPreference;
 
 public class Lockscreen extends SettingsPreferenceFragment implements
         Preference.OnPreferenceChangeListener {
@@ -44,7 +45,10 @@ public class Lockscreen extends SettingsPreferenceFragment implements
     private static final String LOCKSCREEN_VISUALIZER_ENABLED = "lockscreen_visualizer_enabled";
     private SecureSettingMasterSwitchPreference mVisualizerEnabled;
     private static final String FOD_ICON_PICKER_CATEGORY = "fod_icon_picker";
+    private static final String LOCKSCREEN_CLOCK_SELECTION = "lockscreen_clock_selection";
     private static final String LOCK_CLOCK_FONTS = "lock_clock_fonts";
+    private static final String TEXT_CLOCK_ALIGNMENT = "text_clock_alignment";
+    private static final String TEXT_CLOCK_PADDING = "text_clock_padding";
     private static final String LOCK_DATE_FONTS = "lock_date_fonts";
     private static final String CLOCK_FONT_SIZE = "lockclock_font_size";
     private static final String DATE_FONT_SIZE  = "lockdate_font_size";
@@ -52,12 +56,15 @@ public class Lockscreen extends SettingsPreferenceFragment implements
     private static final String LOCKOWNER_FONT_SIZE = "lockowner_font_size";
 
     private PreferenceCategory mFODIconPickerCategory;
+    private ListPreference mLockClockSelection;
+    private ListPreference mTextClockAlign;
     private ListPreference mLockClockFonts;
     private ListPreference mLockDateFonts;
     private CustomSeekBarPreference mClockFontSize;
     private CustomSeekBarPreference mDateFontSize;
     private CustomSeekBarPreference mOwnerInfoFontSize;
     private ListPreference mLockOwnerInfoFonts;
+    private SystemSettingSeekBarPreference mTextClockPadding;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -81,6 +88,14 @@ public class Lockscreen extends SettingsPreferenceFragment implements
                 && !getResources().getBoolean(com.android.internal.R.bool.config_supportsInDisplayFingerprint)) {
             prefScreen.removePreference(mFODIconPickerCategory);
 
+        // Lockscreen Clock
+        mLockClockSelection = (ListPreference) findPreference(LOCKSCREEN_CLOCK_SELECTION);
+        boolean mClockSelection = Settings.Secure.getIntForUser(resolver,
+                Settings.Secure.LOCKSCREEN_CLOCK_SELECTION, 0, UserHandle.USER_CURRENT) == 9
+                || Settings.Secure.getIntForUser(resolver,
+                Settings.Secure.LOCKSCREEN_CLOCK_SELECTION, 0, UserHandle.USER_CURRENT) == 10;
+        mLockClockSelection.setOnPreferenceChangeListener(this);
+
         // Lockscreen Clock Fonts
         mLockClockFonts = (ListPreference) findPreference(LOCK_CLOCK_FONTS);
         mLockClockFonts.setValue(String.valueOf(Settings.System.getInt(
@@ -100,6 +115,17 @@ public class Lockscreen extends SettingsPreferenceFragment implements
         mClockFontSize.setValue(Settings.System.getInt(getContentResolver(),
                 Settings.System.LOCKCLOCK_FONT_SIZE, 54));
         mClockFontSize.setOnPreferenceChangeListener(this);
+
+        // Text Clock Alignment
+        mTextClockAlign = (ListPreference) findPreference(TEXT_CLOCK_ALIGNMENT);
+        mTextClockAlign.setEnabled(mClockSelection);
+        mTextClockAlign.setOnPreferenceChangeListener(this);
+
+        // Text Clock Padding
+        mTextClockPadding = (SystemSettingSeekBarPreference) findPreference(TEXT_CLOCK_PADDING);
+        boolean mTextClockAlignx = Settings.System.getIntForUser(resolver,
+                    Settings.System.TEXT_CLOCK_ALIGNMENT, 0, UserHandle.USER_CURRENT) == 1;
+        mTextClockPadding.setEnabled(!mTextClockAlignx);
 
         // Lockscreen Date Size
         mDateFontSize = (CustomSeekBarPreference) findPreference(DATE_FONT_SIZE);
@@ -150,6 +176,11 @@ public class Lockscreen extends SettingsPreferenceFragment implements
             mLockClockFonts.setValue(String.valueOf(objValue));
             mLockClockFonts.setSummary(mLockClockFonts.getEntry());
             return true;
+        } else if (preference == mLockClockSelection) {
+            boolean val = Integer.valueOf((String) objValue) == 9
+                    || Integer.valueOf((String) objValue) == 10;
+            mTextClockAlign.setEnabled(val);
+            return true;
         } else if (preference == mLockDateFonts) {
             Settings.System.putInt(getContentResolver(), Settings.System.LOCK_DATE_FONTS,
                     Integer.valueOf((String) objValue));
@@ -160,6 +191,10 @@ public class Lockscreen extends SettingsPreferenceFragment implements
             int top = (Integer) objValue;
             Settings.System.putInt(getContentResolver(),
                     Settings.System.LOCKCLOCK_FONT_SIZE, top*1);
+            return true;
+        } else if (preference == mTextClockAlign) {
+            boolean val = Integer.valueOf((String) objValue) == 1;
+            mTextClockPadding.setEnabled(!val);
             return true;
         } else if (preference == mDateFontSize) {
             int top = (Integer) objValue;
