@@ -45,7 +45,7 @@ public class Notifications extends SettingsPreferenceFragment implements
 
     private static final String FORCE_EXPANDED_NOTIFICATIONS = "force_expanded_notifications";
     private static final String HEADS_UP_NOTIFICATIONS_ENABLED = "heads_up_notifications_enabled";
-    private static final String PULSE_AMBIENT_LIGHT = "pulse_ambient_light";
+    private static final String AMBIENT_NOTIFICATION_LIGHT = "ambient_notification_light";
 
     private Preference mChargingLeds;
     private SwitchPreference mForceExpanded;
@@ -79,10 +79,10 @@ public class Notifications extends SettingsPreferenceFragment implements
                 HEADS_UP_NOTIFICATIONS_ENABLED, 1);
         mHeadsUpEnabled.setChecked(headsUpEnabled != 0);
 
-        mEdgeLightEnabled = (SystemSettingMasterSwitchPreference) findPreference(PULSE_AMBIENT_LIGHT);
+        mEdgeLightEnabled = (SystemSettingMasterSwitchPreference) findPreference(AMBIENT_NOTIFICATION_LIGHT);
         mEdgeLightEnabled.setOnPreferenceChangeListener(this);
         int edgeLightEnabled = Settings.System.getInt(getContentResolver(),
-                PULSE_AMBIENT_LIGHT, 0);
+                AMBIENT_NOTIFICATION_LIGHT, 0);
         mEdgeLightEnabled.setChecked(edgeLightEnabled != 0);
     }
 
@@ -115,7 +115,7 @@ public class Notifications extends SettingsPreferenceFragment implements
         } else if (preference == mEdgeLightEnabled) {
             boolean value = (Boolean) newValue;
             Settings.System.putInt(getContentResolver(),
-                    PULSE_AMBIENT_LIGHT, value ? 1 : 0);
+                    AMBIENT_NOTIFICATION_LIGHT, value ? 1 : 0);
             return true;
         }
         return true;
