@@ -856,4 +856,16 @@
     <string name="qs_blur_alpha_title">Blur alpha</string>
     <string name="qs_blur_alpha_summary">Sets the blur transparency</string>
 
+    <!-- VoLTE Icon Type -->
+    <string name="volte_icon_style_title">Select VoLTE/HD Icon</string>
+    <string name="volte_icon_tos">Default</string>
+    <string name="volte_icon_asus">Asus</string>
+    <string name="volte_icon_vo">Vo</string>
+    <string name="volte_icon_volit">VoLIT</string>
+    <string name="volte_icon_margarita">Margarita</string>
+    <string name="volte_icon_oos">OnePlus</string>
+    <string name="volte_icon_hd">HD</string>
+    <string name="volte_icon_android1hd">Android One HD</string>
+    <string name="volte_icon_miui">MIUI</string>
+
 </resources>
