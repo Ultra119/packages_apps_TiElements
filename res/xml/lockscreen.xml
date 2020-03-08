@@ -144,6 +144,16 @@
             android:summary="@string/lockscreen_battery_info_summary"
             android:defaultValue="true" />
 
+
+        <com.titanium.support.preferences.SystemSettingListPreference
+            android:key="lockscreen_charging_animation"
+            android:dialogTitle="@string/lockscreen_charging_animation_title"
+            android:title="@string/lockscreen_charging_animation_title"
+            android:entries="@array/lockscreen_charging_animation_entries"
+            android:entryValues="@array/lockscreen_charging_animation_values"
+            android:summary="%s"
+            android:defaultValue="1" />
+
         <com.titanium.support.preferences.SystemSettingSwitchPreference
             android:key="lockscreen_show_status_bar"
             android:title="@string/lockscreen_show_status_bar_title"

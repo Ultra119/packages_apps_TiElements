@@ -711,6 +711,12 @@
     <!-- Charging animation -->
     <string name="lockscreen_charging_animation_title">Charging animation</string>
     <string name="lockscreen_charging_animation_summary">Display an animation when the device is plugged in</string>
+    <string name="lockscreen_charging_animation_off">Off</string>
+    <string name="lockscreen_charging_animation_flash">Flash</string>
+    <string name="lockscreen_charging_animation_battery">Battery</string>
+    <string name="lockscreen_charging_animation_drop">Drop</string>
+    <string name="lockscreen_charging_animation_explosion">Explosion</string>
+    <string name="lockscreen_charging_animation_water">Water</string>
 
     <!-- Audio Panel view -->
     <string name="audio_panel_view">Audio panel</string>
@@ -890,4 +896,3 @@
     <string name="pulse_ambient_light_show_always_summary">Show lights for all doze events and not just notifications</string>
 
 </resources>
-
