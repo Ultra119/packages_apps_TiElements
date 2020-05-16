@@ -135,6 +135,10 @@
     <string name="lockscreen_qs_disabled_title">Disable quick settings when locked</string>
     <string name="lockscreen_qs_disabled_summary">Disable expanding quick settings on secure lock screens</string>
 
+    <!-- QS Battery Position -->
+    <string name="qs_battery_location_bar">Battery in QS Header</string>
+    <string name="qs_battery_location_bar_summary">Shows battery in QS Header</string>
+
     <!-- Quick pull down-->
     <string name="quick_pulldown_title">Quick pulldown</string>
     <string name="quick_pulldown_summary">%1$s edge of the status bar pulls down Quick Settings</string>
