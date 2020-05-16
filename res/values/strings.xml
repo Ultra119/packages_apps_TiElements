@@ -134,6 +134,8 @@
     <string name="qs_panel_title">QS Panel</string>
     <string name="lockscreen_qs_disabled_title">Disable quick settings when locked</string>
     <string name="lockscreen_qs_disabled_summary">Disable expanding quick settings on secure lock screens</string>
+    <string name="qs_hide_battery_title">Hide battery icon</string>
+    <string name="qs_hide_battery_summary">Hides the battery icon from the QS header</string>
 
     <!-- Quick pull down-->
     <string name="quick_pulldown_title">Quick pulldown</string>

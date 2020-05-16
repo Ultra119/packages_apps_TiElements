@@ -34,6 +34,8 @@ import com.android.settings.SettingsPreferenceFragment;
 import com.android.internal.logging.nano.MetricsProto;
 import com.titanium.support.preferences.CustomSeekBarPreference;
 import com.titanium.support.preferences.SystemSettingMasterSwitchPreference;
+import com.titanium.support.preferences.SystemSettingSwitchPreference;
+import com.titanium.support.preferences.SystemSettingListPreference;
 import com.titanium.support.colorpicker.ColorPickerPreference;
 import com.android.settings.Utils;
 
@@ -52,6 +54,8 @@ public class QuickSettings extends SettingsPreferenceFragment implements
     private static final String STATUS_BAR_CUSTOM_HEADER = "status_bar_custom_header";
     private static final String QS_PANEL_COLOR = "qs_panel_color";
     static final int DEFAULT_QS_PANEL_COLOR = 0xffffffff;
+    private static final String QS_HIDE_BATTERY = "qs_hide_battery";
+    private static final String QS_BATTERY_MODE = "qs_battery_mode";
 
     private ColorPickerPreference mQsPanelColor;
     private ListPreference mQuickPulldown;
@@ -62,6 +66,8 @@ public class QuickSettings extends SettingsPreferenceFragment implements
     private ListPreference mTileAnimationInterpolator;
     private CustomSeekBarPreference mQsBlurAlpha;
     private SystemSettingMasterSwitchPreference mCustomHeader;
+    private SystemSettingSwitchPreference mHideBattery;
+    private SystemSettingListPreference mQsBatteryMode;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -129,6 +135,10 @@ public class QuickSettings extends SettingsPreferenceFragment implements
         String hexColor = String.format("#%08x", (0xffffffff & intColor));
         mQsPanelColor.setSummary(hexColor);
         mQsPanelColor.setNewPreviewColor(intColor);
+
+        mQsBatteryMode = (SystemSettingListPreference) findPreference(QS_BATTERY_MODE);
+        mHideBattery = (SystemSettingSwitchPreference) findPreference(QS_HIDE_BATTERY);
+        mHideBattery.setOnPreferenceChangeListener(this);
     }
 
     @Override
@@ -197,6 +207,12 @@ public class QuickSettings extends SettingsPreferenceFragment implements
             int intHex = ColorPickerPreference.convertToColorInt(hex);
             Settings.System.putIntForUser(getContentResolver(),
                     Settings.System.QS_PANEL_BG_COLOR, intHex, UserHandle.USER_CURRENT);
+            return true;
+        } else if (preference == mHideBattery) {
+            Boolean value = (Boolean) objValue;
+            Settings.System.putInt(getContentResolver(),
+                    Settings.System.QS_HIDE_BATTERY, value ? 1 : 0);
+            mQsBatteryMode.setEnabled(!value);
             return true;
         }
         return true;

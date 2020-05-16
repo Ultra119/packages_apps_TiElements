@@ -60,6 +60,13 @@
         android:summary="@string/qs_datausage_subtitle"
         android:defaultValue="false" />
 
+    <!-- Battery hide -->
+    <com.titanium.support.preferences.SystemSettingSwitchPreference
+        android:key="qs_hide_battery"
+        android:title="@string/qs_hide_battery_title"
+        android:summary="@string/qs_hide_battery_summary"
+        android:defaultValue="false" />
+
     </PreferenceCategory>
 
     <PreferenceCategory
