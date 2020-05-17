@@ -91,11 +91,11 @@ public class GamingMode extends SettingsPreferenceFragment
         final PreferenceScreen prefScreen = getPreferenceScreen();
 
         mHardwareKeysDisable = (SwitchPreference) findPreference(GAMING_MODE_HW_KEYS);
-
-        if (!haveHWkeys()) {
+        
+        if (!hasHWkeys()) {
             prefScreen.removePreference(mHardwareKeysDisable);
         }
-
+        
         mPackageManager = getPackageManager();
         mPackageAdapter = new PackageListAdapter(getActivity());
 
@@ -219,6 +219,19 @@ public class GamingMode extends SettingsPreferenceFragment
 
     };
 
+    private boolean hasHWkeys() {
+        final int deviceKeys = getContext().getResources().getInteger(
+                com.android.internal.R.integer.config_deviceHardwareKeys);
+
+        // read bits for present hardware keys
+        final boolean hasHomeKey = (deviceKeys & KEY_MASK_HOME) != 0;
+        final boolean hasBackKey = (deviceKeys & KEY_MASK_BACK) != 0;
+        final boolean hasMenuKey = (deviceKeys & KEY_MASK_MENU) != 0;
+        final boolean hasAppSwitchKey = (deviceKeys & KEY_MASK_APP_SWITCH) != 0;
+
+        return (hasHomeKey || hasBackKey || hasMenuKey || hasAppSwitchKey);
+    }
+
     private void refreshCustomApplicationPrefs() {
         if (!parsePackageList()) {
             return;
@@ -236,12 +249,12 @@ public class GamingMode extends SettingsPreferenceFragment
                     // Do nothing
                 }
             }
-        }
 
-        // Keep these at the top
-        mAddGamingPref.setOrder(0);
-        // Add 'add' options
-        mGamingPrefList.addPreference(mAddGamingPref);
+            // Keep these at the top
+            mAddGamingPref.setOrder(0);
+            // Add 'add' options
+            mGamingPrefList.addPreference(mAddGamingPref);
+        }
     }
 
     @Override
@@ -347,18 +360,5 @@ public class GamingMode extends SettingsPreferenceFragment
         }
         Settings.System.putString(getContentResolver(),
                 setting, value);
-    }
-
-    private boolean haveHWkeys() {
-        final int deviceKeys = getContext().getResources().getInteger(
-                com.android.internal.R.integer.config_deviceHardwareKeys);
-
-        // read bits for present hardware keys
-        final boolean hasHomeKey = (deviceKeys & KEY_MASK_HOME) != 0;
-        final boolean hasBackKey = (deviceKeys & KEY_MASK_BACK) != 0;
-        final boolean hasMenuKey = (deviceKeys & KEY_MASK_MENU) != 0;
-        final boolean hasAppSwitchKey = (deviceKeys & KEY_MASK_APP_SWITCH) != 0;
-
-        return (hasHomeKey || hasBackKey || hasMenuKey || hasAppSwitchKey);
     }
 }
