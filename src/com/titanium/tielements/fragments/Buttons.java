@@ -42,7 +42,15 @@ import com.android.settings.Utils;
 import com.titanium.support.preferences.CustomSeekBarPreference;
 import com.titanium.support.preferences.SystemSettingSwitchPreference;
 
-public class Buttons extends ActionFragment implements Preference.OnPreferenceChangeListener {
+import com.android.settings.search.BaseSearchIndexProvider;
+import com.android.settings.search.Indexable;
+import com.android.settingslib.search.SearchIndexable;
+import android.provider.SearchIndexableResource;
+import java.util.ArrayList;
+import java.util.List;
+
+public class Buttons extends ActionFragment implements 
+    Preference.OnPreferenceChangeListener, Indexable {
 
     private static final String KEY_BUTTON_BRIGHTNESS = "button_brightness";
     private static final String KEY_BUTTON_BRIGHTNESS_SW = "button_brightness_sw";
@@ -245,5 +253,26 @@ public class Buttons extends ActionFragment implements Preference.OnPreferenceCh
         }
         return true;
     }
+
+    public static final SearchIndexProvider SEARCH_INDEX_DATA_PROVIDER =
+        new BaseSearchIndexProvider() {
+            @Override
+            public List<SearchIndexableResource> getXmlResourcesToIndex(Context context,
+                    boolean enabled) {
+                ArrayList<SearchIndexableResource> result =
+                        new ArrayList<SearchIndexableResource>();
+
+                SearchIndexableResource sir = new SearchIndexableResource(context);
+                sir.xmlResId = R.xml.buttons;
+                result.add(sir);
+                return result;
+            }
+
+            @Override
+            public List<String> getNonIndexableKeys(Context context) {
+                List<String> keys = super.getNonIndexableKeys(context);
+                return keys;
+            }
+    };
 
 }

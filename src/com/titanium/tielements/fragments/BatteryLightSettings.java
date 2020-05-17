@@ -16,6 +16,7 @@
 package com.titanium.tielements.fragments;
 
 import android.content.ContentResolver;
+import android.content.Context;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.os.UserHandle;
@@ -33,8 +34,15 @@ import com.android.settings.SettingsPreferenceFragment;
 
 import com.titanium.support.colorpicker.ColorPickerPreference;
 
+import com.android.settings.search.BaseSearchIndexProvider;
+import com.android.settings.search.Indexable;
+import com.android.settingslib.search.SearchIndexable;
+import android.provider.SearchIndexableResource;
+import java.util.ArrayList;
+import java.util.List;
+
 public class BatteryLightSettings extends SettingsPreferenceFragment implements
-        Preference.OnPreferenceChangeListener {
+        Preference.OnPreferenceChangeListener, Indexable {
 
     private ColorPickerPreference mLowColor;
     private ColorPickerPreference mMediumColor;
@@ -139,4 +147,25 @@ public class BatteryLightSettings extends SettingsPreferenceFragment implements
         }
         return false;
     }
+
+    public static final SearchIndexProvider SEARCH_INDEX_DATA_PROVIDER =
+        new BaseSearchIndexProvider() {
+            @Override
+            public List<SearchIndexableResource> getXmlResourcesToIndex(Context context,
+                    boolean enabled) {
+                ArrayList<SearchIndexableResource> result =
+                        new ArrayList<SearchIndexableResource>();
+
+                SearchIndexableResource sir = new SearchIndexableResource(context);
+                sir.xmlResId = R.xml.battery_light;
+                result.add(sir);
+                return result;
+            }
+
+            @Override
+            public List<String> getNonIndexableKeys(Context context) {
+                List<String> keys = super.getNonIndexableKeys(context);
+                return keys;
+            }
+    };
 }

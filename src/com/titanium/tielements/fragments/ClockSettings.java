@@ -46,10 +46,16 @@ import com.titanium.support.preferences.CustomSeekBarPreference;
 import com.titanium.support.colorpicker.ColorPickerPreference;
 import com.android.internal.logging.nano.MetricsProto;
 
+import com.android.settings.search.BaseSearchIndexProvider;
+import com.android.settings.search.Indexable;
+import com.android.settingslib.search.SearchIndexable;
+import android.provider.SearchIndexableResource;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Date;
 
 public class ClockSettings extends SettingsPreferenceFragment implements
-	OnPreferenceChangeListener  {
+	OnPreferenceChangeListener, Indexable  {
 
     private static final String STATUS_BAR_CLOCK = "status_bar_clock";
     private static final String STATUS_BAR_CLOCK_SECONDS = "status_bar_clock_seconds";
@@ -352,4 +358,25 @@ public class ClockSettings extends SettingsPreferenceFragment implements
         }
         mClockDateFormat.setEntries(parsedDateEntries);
     }
+
+    public static final SearchIndexProvider SEARCH_INDEX_DATA_PROVIDER =
+        new BaseSearchIndexProvider() {
+            @Override
+            public List<SearchIndexableResource> getXmlResourcesToIndex(Context context,
+                    boolean enabled) {
+                ArrayList<SearchIndexableResource> result =
+                        new ArrayList<SearchIndexableResource>();
+
+                SearchIndexableResource sir = new SearchIndexableResource(context);
+                sir.xmlResId = R.xml.clock_settings;
+                result.add(sir);
+                return result;
+            }
+
+            @Override
+            public List<String> getNonIndexableKeys(Context context) {
+                List<String> keys = super.getNonIndexableKeys(context);
+                return keys;
+            }
+    };
 }
